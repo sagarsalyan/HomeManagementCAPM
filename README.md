@@ -28,3 +28,18 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 1. Create Schema, create service, add data (cds add data) -- here db is local sqlite
 2. Add xsuaa 
     cds add xsuaa
+
+3. Add UI5 app
+    right click on mta.yaml -> Create MTA Module From Template -> Select Fiori Generator
+    while create select "Add deployment config in MTA" checkbox
+
+4. Add AppRouter
+    right click on mta.yaml ->  Create MTA Module From Template -> Select AppRouter Configuration -> select Managed Approuter -> Plan to Add UI-Yes -> select Overwite this and all others
+5. Add below code in xs-app.json inside 'routes' array of ui5 app
+    {
+      "source": "^/odata/(.*)$",
+      "target": "/odata/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
