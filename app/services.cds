@@ -1,2 +1,2 @@
 
-using from './homemgtui5/annotations';
+using from './project1/annotations';
