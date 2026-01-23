@@ -1,5 +1,5 @@
 _schema-version: 3.3.0
-ID: homemgtcap
+ID: homemgtcapm
 description: A simple CAP Project
 version: 1.0.0
 build-parameters:
@@ -9,12 +9,12 @@ build-parameters:
         - npm ci
         - npx cds build --production
 modules:
-  - name: homemgtcap-srv
+  - name: homemgtcapm-srv
     type: nodejs
     path: gen/srv
     requires:
-      - name: uaa_homemgtcap
-      - name: homemgtcap-postgres
+      - name: uaa_homemgtcapm
+      - name: postgres-db
     provides:
       - name: srv-api
         properties:
@@ -24,30 +24,31 @@ modules:
       instances: 1
     build-parameters:
       builder: npm-ci
-
-  - name: homemgtcap-postgres-deployer
+  - name: homemgtcapm-db-deployer
     type: nodejs
     path: gen/pg
+    requires:
+      - name: postgres-db
+      - name: uaa_homemgtcapm
     parameters:
       buildpack: nodejs_buildpack
       no-route: true
       no-start: true
       tasks:
-        - name: deploy-to-postgresql
-          command: npm start
-    requires:
-      - name: homemgtcap-postgres
+        - command: npm start
+          name: deploy-to-postgresql
 resources:
-  - name: uaa_homemgtcap
+  - name: uaa_homemgtcapm
     type: org.cloudfoundry.managed-service
     parameters:
       config:
         tenant-mode: dedicated
-        xsappname: homemgtcap-${org}-${space}
+        xsappname: homemgtcapm-${org}-${space}
       path: ./xs-security.json
       service: xsuaa
+      service-name: uaa_homemgtcapm-service
       service-plan: application
-  - name: homemgtcap-postgres
+  - name: postgres-db
     type: org.cloudfoundry.managed-service
     parameters:
       service: postgresql-db
