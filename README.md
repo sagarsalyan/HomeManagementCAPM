@@ -28,3 +28,8 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 1. Create Schema, create service, add data (cds add data) -- here db is local sqlite
 2. Add xsuaa 
     cds add xsuaa
+3. Add mta 
+    cds add mta
+4. Build and deploy 
+    mbt build 
+    cf deploy mta_archilve/homemgtcap.mtar
