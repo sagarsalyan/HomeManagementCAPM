@@ -1,5 +1,6 @@
 module.exports = async (srv) => {
-    srv.on('READ', 'Members', async (req) => {
+    // Here "*" mean all, instead we can mention entity name.
+    srv.on('READ', '*', async (req) => {
         // Return dummy data directly for this entity set
         return [
             { Mid: "1", Name: 'Sagar Salyan', Age: 28 },

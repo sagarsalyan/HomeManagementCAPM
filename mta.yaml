@@ -35,15 +35,15 @@ modules:
     content:
       instance:
         destinations:
-        - Name: proj1app_homemgtcap_html_repo_host
+        - Name: homemgtapprouter_homemgtcap_html_repo_host
           ServiceInstanceName: homemgtcap-html5-app-host-service
           ServiceKeyName: homemgtcap_html_repo_host-key
-          sap.cloud.service: proj1app
+          sap.cloud.service: homemgtapprouter
         - Authentication: OAuth2UserTokenExchange
-          Name: proj1app_homemgtcap_auth
+          Name: homemgtapprouter_homemgtcap_auth
           ServiceInstanceName: homemgtcap-auth
           ServiceKeyName: homemgtcap-auth-key
-          sap.cloud.service: proj1app
+          sap.cloud.service: homemgtapprouter
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true
@@ -58,12 +58,12 @@ modules:
     build-result: resources
     requires:
     - artifacts:
-      - project1.zip
-      name: project1
+      - apphomemgtui5.zip
+      name: apphomemgtui5
       target-path: resources/
-- name: project1
+- name: apphomemgtui5
   type: html5
-  path: app/project1
+  path: app/homemgtui5
   build-parameters:
     build-result: dist
     builder: custom
