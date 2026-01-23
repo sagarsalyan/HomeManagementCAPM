@@ -32,4 +32,7 @@ resources:
         xsappname: homemgtcap-${org}-${space}
       path: ./xs-security.json
       service: xsuaa
+      service-name: uaa_homemgtcap-service
       service-plan: application
+parameters:
+  enable-parallel-deployments: true
