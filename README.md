@@ -45,3 +45,9 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },
+
+6. Add mta 
+    cds add mta
+7. Build and deploy 
+    mbt build 
+    cf deploy mta_archilve/homemgtcap.mtar
