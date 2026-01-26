@@ -1,7 +1,9 @@
 _schema-version: 3.3.0
 ID: homemgtcap
-description: A simple CAP Project
 version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
 build-parameters:
   before-all:
     - builder: custom
@@ -12,24 +14,48 @@ modules:
   - name: homemgtcap-srv
     type: nodejs
     path: gen/srv
-    requires:
-      - name: uaa_homemgtcap
-    provides:
-      - name: srv-api
-        properties:
-          srv-url: ${default-url}
     parameters:
-      buildpack: nodejs_buildpack
       instances: 1
+      buildpack: nodejs_buildpack
     build-parameters:
       builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: homemgtcap-auth
+      - name: postgres-db
+
+  - name: homemgtcap-postgres-deployer
+    type: nodejs
+    path: gen/pg
+    parameters:
+      buildpack: nodejs_buildpack
+      no-route: true
+      no-start: true
+      tasks:
+        - name: deploy-to-postgresql
+          command: npm start
+    requires:
+      - name: postgres-db
+
 resources:
-  - name: uaa_homemgtcap
+  - name: homemgtcap-auth
     type: org.cloudfoundry.managed-service
     parameters:
-      config:
-        tenant-mode: dedicated
-        xsappname: homemgtcap-${org}-${space}
-      path: ./xs-security.json
       service: xsuaa
       service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: homemgtcap-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
+  - name: postgres-db
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: postgresql-db
+      service-plan: trail

@@ -5,7 +5,8 @@
   "dependencies": {
     "@sap/cds": "^9",
     "express": "^4",
-    "@sap/xssec": "^4"
+    "@sap/xssec": "^4",
+    "@cap-js/postgres": "^2"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
@@ -17,8 +18,16 @@
   "private": true,
   "cds": {
     "requires": {
+      "[hybrid]": {
+        "db": {
+          "kind": "sqlite"
+        }
+      },
       "[production]": {
-        "auth": "mocked"
+        "db": {
+          "kind": "postgres"
+        },
+        "auth": "xsuaa"
       }
     }
   }
