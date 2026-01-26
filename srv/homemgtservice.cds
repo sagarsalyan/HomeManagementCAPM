@@ -1,4 +1,5 @@
 using { nshomemgt } from '../db/homemgtschema';
-service Homemgt {
+@path: 'HOME_MGT'
+service Homemgt{
     entity Members as projection on nshomemgt.Members;
 }
