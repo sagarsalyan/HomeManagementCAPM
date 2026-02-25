@@ -26,3 +26,7 @@ server:
       configuration:
         flp:
           theme: sap_horizon
+builder:
+  cachebuster:
+    # 'time' is default; 'hash' is more robust across CI/CD
+    signatureType: hash

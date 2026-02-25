@@ -13,7 +13,8 @@
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",
-      "destination": "ui5"
+      "destination": "ui5",
+      "cacheControl": "no-store"
     },
     {
       "source": "^/test-resources/(.*)$",
@@ -25,7 +26,8 @@
       "source": "^(.*)$",
       "target": "$1",
       "service": "html5-apps-repo-rt",
-      "authenticationType": "xsuaa"
+      "authenticationType": "xsuaa",
+      "cacheControl": "no-cache, no-store, must-revalidate"
     }
   ]
 }
