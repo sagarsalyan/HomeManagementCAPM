@@ -31,3 +31,31 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 3. Add hana
     cds add hana --for production
     
+    Below code will be added in the package.json
+
+     "dependencies": {
+        "@cap-js/hana": "^2",
+        "@sap/cds": "^9",
+        "@sap/xssec": "^4",
+        "express": "^4"
+    },
+
+    "cds": {
+        "requires": {
+        "[production]": {
+            "auth": "mocked",
+            "db": "hana"
+        },
+        "[hybrid]": {
+            "db": "sqlite"
+        }
+    }
+  }
+
+4. Add mta
+    cds add mta
+5. Build MTA
+    mbt build
+6. Deploy app
+    cf deploy mta_archives/homemgtcap_1.0.0.mtar
+    
