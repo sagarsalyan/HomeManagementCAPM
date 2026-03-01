@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "dependencies": {
+    "@cap-js/hana": "^2",
     "@sap/cds": "^9",
-    "express": "^4",
-    "@sap/xssec": "^4"
+    "@sap/xssec": "^4",
+    "express": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
@@ -18,7 +19,11 @@
   "cds": {
     "requires": {
       "[production]": {
-        "auth": "mocked"
+        "auth": "mocked",
+        "db": "hana"
+      },
+      "[hybrid]": {
+        "db": "sqlite"
       }
     }
   }
