@@ -24,6 +24,12 @@ File or Folder | Purpose
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
 
+Prerequisites - 
+Subscribe to SAP Hana Cloud from Service Market Plane
+Go to SAP Hana Cloud Application
+Create DB instance
+Create HDI Container instance from Service Market Place
+
 #CAP + No DB
 1. Create Schema, create service, add data (cds add data) -- here db is local sqlite
 2. Add xsuaa 
@@ -54,6 +60,12 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 
 4. Add mta
     cds add mta
+    Make sure here name is hdi container's name
+      - name: homemgtcap-db
+        type: com.sap.xs.hdi-container
+        parameters:
+            service: hana
+            service-plan: hdi-shared
 5. Build MTA
     mbt build
 6. Deploy app
