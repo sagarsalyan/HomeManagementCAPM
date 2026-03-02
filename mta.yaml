@@ -14,6 +14,7 @@ modules:
     path: gen/srv
     requires:
       - name: uaa_homemgtcap
+      - name: homemgtcap-db
     provides:
       - name: srv-api
         properties:
@@ -23,6 +24,14 @@ modules:
       instances: 1
     build-parameters:
       builder: npm-ci
+
+  - name: homemgtcap-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: homemgtcap-db
 resources:
   - name: uaa_homemgtcap
     type: org.cloudfoundry.managed-service
@@ -33,3 +42,10 @@ resources:
       path: ./xs-security.json
       service: xsuaa
       service-plan: application
+  - name: homemgtcap-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+parameters:
+  enable-parallel-deployments: true
