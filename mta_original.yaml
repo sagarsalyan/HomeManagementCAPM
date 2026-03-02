@@ -24,16 +24,14 @@ modules:
       instances: 1
     build-parameters:
       builder: npm-ci
+
   - name: homemgtcap-db-deployer
     type: hdb
     path: gen/db
-    requires:
-      - name: homemgtcap-db
-      - name: uaa_homemgtcap
     parameters:
       buildpack: nodejs_buildpack
-      no-route: true
-      no-start: true
+    requires:
+      - name: homemgtcap-db
 resources:
   - name: uaa_homemgtcap
     type: org.cloudfoundry.managed-service
@@ -43,7 +41,6 @@ resources:
         xsappname: homemgtcap-${org}-${space}
       path: ./xs-security.json
       service: xsuaa
-      service-name: uaa_homemgtcap-service
       service-plan: application
   - name: homemgtcap-db
     type: com.sap.xs.hdi-container
