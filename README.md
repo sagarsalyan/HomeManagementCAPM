@@ -60,3 +60,21 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
         parameters:
             service: hana
             service-plan: hdi-shared
+6. Add AppRouter 
+    right click on mta.yaml -> Create MTA Module From Template -> Select AppRouter Configuration -> select Managed Approuter -> Plan to Add UI-Yes -> select Overwite this and all others
+7. Add UI5 app 
+    right click on mta.yaml -> Create MTA Module From Template -> Select Fiori Generator 
+    while create select "Add deployment config in MTA" checkbox always check approuter in mta.yaml and manifest.json
+    Add Local CAP for adding service
+
+8. Add below code in xs-app.json inside 'routes' array of ui5 app if missing, this is router for odata service.
+    { 
+        "source": "^/odata/(.*)$", 
+        "target": "/odata/$1", 
+        "destination": "srv-api", 
+        "authenticationType": "xsuaa", 
+        "csrfProtection": false 
+    },
+6. Build and deploy 
+    mbt build 
+    cf deploy mta_archilve/homemgtcap.mtar
