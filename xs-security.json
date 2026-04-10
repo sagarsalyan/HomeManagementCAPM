@@ -1,5 +1,34 @@
 {
-  "scopes": [],
-  "attributes": [],
-  "role-templates": []
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.StudentFull",
+      "description": "Full access to Student entity"
+    },
+    {
+      "name": "$XSAPPNAME.TeacherRead",
+      "description": "Read access to Teacher entity"
+    },
+    {
+      "name": "$XSAPPNAME.Student_Admin",
+      "description": "Student_Admin"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Student_Admin",
+      "description": "CRUD access on Student",
+      "scope-references": [
+        "$XSAPPNAME.StudentFull"
+      ]
+    },
+    {
+      "name": "Teacher_Reader",
+      "description": "Read-only access on Teacher",
+      "scope-references": [
+        "$XSAPPNAME.TeacherRead"
+      ]
+    }
+  ],
+  "attributes": []
 }

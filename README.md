@@ -61,13 +61,22 @@ Create HDI Container instance from Service Market Place
 4. Add mta
     cds add mta
     Make sure here name is hdi container's name
-      - name: homemgtcap-db
+      - name: hana-hdi-container
         type: com.sap.xs.hdi-container
         parameters:
             service: hana
             service-plan: hdi-shared
+5. Check srv/homemgtservice.cds file to know access is granted for the entity.
+6. Check xs-security.json to know how role-template is created
+7. Run below command to create app-router to access service through xsuaa authentication
+    cds add approuter --production
+    Check changes in app/router,mta.yaml
+8. Check in the Role in BTP, new role mentioned in xs-security.json will be created. Create Role Template using this role and assign to particular user whom need to give access
 5. Build MTA
     mbt build
 6. Deploy app
     cf deploy mta_archives/homemgtcap_1.0.0.mtar
+
+Note: To run locally through SQLite database, you need to run below command to deploy yo SQLite
+cds deploy --to sqlite
     

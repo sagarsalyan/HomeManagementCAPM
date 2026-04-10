@@ -1,6 +1,13 @@
 namespace nshomemgt;
-entity Members {
-    key Mid:String(10);
-    Name:String(25);
-    Age:Int16
+entity Students {
+    key ID      : UUID;
+    name        : String;
+    age         : Integer;
+    course      : String;
+}
+
+entity Teachers {
+    key ID      : UUID;
+    name        : String;
+    subject     : String;
 }

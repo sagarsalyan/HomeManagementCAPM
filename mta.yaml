@@ -14,7 +14,7 @@ modules:
     path: gen/srv
     requires:
       - name: uaa_homemgtcap
-      - name: homemgtcap-db
+      - name: hana-hdi-container
     provides:
       - name: srv-api
         properties:
@@ -28,12 +28,32 @@ modules:
     type: hdb
     path: gen/db
     requires:
-      - name: homemgtcap-db
+      - name: hana-hdi-container
       - name: uaa_homemgtcap
     parameters:
       buildpack: nodejs_buildpack
       no-route: true
       no-start: true
+  - name: homemgtcap
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: uaa_homemgtcap
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
 resources:
   - name: uaa_homemgtcap
     type: org.cloudfoundry.managed-service
@@ -41,11 +61,16 @@ resources:
       config:
         tenant-mode: dedicated
         xsappname: homemgtcap-${org}-${space}
+        oauth2-configuration:
+          redirect-uris:
+            - https://*~{app-api/app-uri}/**
       path: ./xs-security.json
       service: xsuaa
       service-name: uaa_homemgtcap-service
       service-plan: application
-  - name: homemgtcap-db
+    requires:
+      - name: app-api
+  - name: hana-hdi-container
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
