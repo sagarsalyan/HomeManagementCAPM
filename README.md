@@ -33,7 +33,7 @@ Create HDI Container instance from Service Market Place
 #CAP + No DB
 1. Create Schema, create service, add data (cds add data) -- here db is local sqlite
 2. Add xsuaa 
-    cds add xsuaa
+    cds add xsuaa --for production
 3. Add hana
     cds add hana --for production
     

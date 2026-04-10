@@ -64,6 +64,14 @@ resources:
         oauth2-configuration:
           redirect-uris:
             - https://*~{app-api/app-uri}/**
+          credential-types:
+            - "binding-secret"
+            - "x509"
+        role-collections:
+          - name: 'Student_Admin (homemgtcap ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Student_Admin'
       path: ./xs-security.json
       service: xsuaa
       service-name: uaa_homemgtcap-service
