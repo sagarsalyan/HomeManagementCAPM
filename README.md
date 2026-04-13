@@ -75,6 +75,25 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
         "authenticationType": "xsuaa", 
         "csrfProtection": false 
     },
+
+9. To add UI5 app into SAP Buil Workzone, intent informationi is important, otherwise app will not be visile int eh HTML 5 App Contnt Explorer. 
+    To add intent information ad below code
+    "sap.app": {
+        "crossNavigation": {
+            "inbounds": {
+                "HomeApp-display": {
+                "semanticObject": "HomeApp",
+                "action": "display",
+                "title": "Home App",
+                "subTitle": "Home App",
+                "signature": {
+                    "parameters": {},
+                    "additionalParameters": "allowed"
+                }
+                }
+            }
+        }
+    }
 6. Build and deploy 
     mbt build 
     cf deploy mta_archilve/homemgtcap.mtar

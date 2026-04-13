@@ -21,7 +21,21 @@
         "type": "OData",
         "settings": {
           "annotations": [],
-          "odataVersion": "4.01"
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "HomeApp-display": {
+          "semanticObject": "HomeApp",
+          "action": "display",
+          "title": "Home App",
+          "subTitle": "Home App",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
