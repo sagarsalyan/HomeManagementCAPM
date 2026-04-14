@@ -1,7 +1,7 @@
 <mvc:View controllerName="app.homemgtui5.controller.List"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title} Test">
+    <Page id="page" title="{i18n>title} Test1">
         <List items="{/Members}">
             <StandardListItem title="{Name}"></StandardListItem>
         </List>
