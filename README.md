@@ -49,7 +49,7 @@ Create HDI Container instance from Service Market Place
     "cds": {
         "requires": {
         "[production]": {
-            "auth": "mocked",
+            "auth": "xsuaa",
             "db": "hana"
         },
         "[hybrid]": {
@@ -77,6 +77,6 @@ Create HDI Container instance from Service Market Place
 6. Deploy app
     cf deploy mta_archives/homemgtcap_1.0.0.mtar
 
-Note: To run locally through SQLite database, you need to run below command to deploy yo SQLite
+Note: To run locally through SQLite database, you need to run below command to deploy to SQLite
 cds deploy --to sqlite
     
