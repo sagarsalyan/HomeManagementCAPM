@@ -70,4 +70,27 @@ Create HDI Container instance from Service Market Place
     mbt build
 6. Deploy app
     cf deploy mta_archives/homemgtcap_1.0.0.mtar
+
+This will deploy app, create service with no authentication, becuase for production, auth is mentioned as mocked.
+To enable xsuaa do followings
+
+1. cds add xsuaa --production
+    this will add xsuaa in the production profile. check package.json for the changes.
+2. Now deploy 
+    mbt build
+    cf deploy mta_archives/homemgtcap_1.0.0.mtar
+    Now xsuaa is enabled.
+3. Test is POSTMAN
+    GET https://4d8e6ee1trial-dev-homemgtcap-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/homemgt/Members -- url is my case, check service in space to get the url
+    Authorization - Type - OAuth 2.0
+                    Token Name - Give any name
+                    Grant Type - Client Credentials
+                    Access Token URL - XSUAA service key - url
+                    Client ID - XSUAA service key - clientid
+                    Client Secret - XSUAA service key - clientsecret
+    Click button - 'Get New Access Token'
+    Click button - 'Use token'
+
+4.  Run PostMan
+
     

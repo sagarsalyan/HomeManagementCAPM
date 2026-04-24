@@ -14,7 +14,7 @@ modules:
     path: gen/srv
     requires:
       - name: uaa_homemgtcap
-      - name: homemgtcap-db
+      - name: hana-hdi-container
     provides:
       - name: srv-api
         properties:
@@ -28,7 +28,7 @@ modules:
     type: hdb
     path: gen/db
     requires:
-      - name: homemgtcap-db
+      - name: hana-hdi-container
       - name: uaa_homemgtcap
     parameters:
       buildpack: nodejs_buildpack
@@ -41,11 +41,15 @@ resources:
       config:
         tenant-mode: dedicated
         xsappname: homemgtcap-${org}-${space}
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
       path: ./xs-security.json
       service: xsuaa
       service-name: uaa_homemgtcap-service
       service-plan: application
-  - name: homemgtcap-db
+  - name: hana-hdi-container
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
