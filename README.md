@@ -71,7 +71,7 @@ Create HDI Container instance from Service Market Place
 6. Deploy app
     cf deploy mta_archives/homemgtcap_1.0.0.mtar
 
-This will deploy app, create service with no authentication, becuase for production, auth is mentioned as mocked.
+This will deploy app, create service with no authentication, because for production auth is mentioned as mocked.
 To enable xsuaa do followings
 
 1. cds add xsuaa --production
@@ -92,5 +92,29 @@ To enable xsuaa do followings
     Click button - 'Use token'
 
 4.  Run PostMan
+
+We can also create a destination in BTP which will do the authentication to the service through xsuaa. Follow below steps:
+
+1. Create a destination with below configuration
+    Name - any name (homemgt-dest)
+    Authentication - OAuth2UserTokenExcahange
+    Type - HTTP
+    Cliend ID - XSUAA service key - clientid
+    Client Secret - XSUAA service key - clientsecret
+    Token Service URL - XSUAA service key - url + "/oauth/token"
+    Proxy Type - Internet
+    Token Service URL Type - Dedicated
+    URL - Service URL from service application in dev space, in my case https://4d8e6ee1trial-dev-homemgtcap-srv.cfapps.us10-001.hana.ondemand.com
+
+    Additional Properties:
+    HTML5.DynamicDestination = true
+    WebIDEEnabled = true
+    WebIDEUsage = odata_gen
+
+2.  Test the service through CURL CLI
+    curl <destination_name>.dest
+    cust <destination_name>.dest + "/odata/v4/Members"
+
+
 
     
