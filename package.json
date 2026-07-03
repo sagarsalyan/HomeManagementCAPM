@@ -18,9 +18,21 @@
   "private": true,
   "cds": {
     "requires": {
-      "[production]": {
+      "db_emp": {
         "auth": "xsuaa",
-        "db": "hana"
+        "kind": "hana",
+        "vcap": {
+          "name": "hana-hdi-container-emp"
+        }
+
+      },
+      "db_sup": {
+        "auth": "xsuaa",
+        "kind": "hana",
+        "vcap": {
+          "name": "hana-hdi-container-sup"
+        }
+
       },
       "[hybrid]": {
         "db": "sqlite"

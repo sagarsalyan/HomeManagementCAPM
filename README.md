@@ -116,5 +116,22 @@ We can also create a destination in BTP which will do the authentication to the 
     cust <destination_name>.dest + "/odata/v4/Members"
 
 
+Multiple table in Multiple HDI Container.
+
+To achieve this mta.yaml and package.json to be changed.
+
+MTA Changes
+1. Add HDI Containers in RESOURCE  (Refer mta.yaml for code)
+2. Create DB deployer for each HDI Containers in MODULES. (Refer mta.yaml for code)
+3. Maintain all HDI containers in REQUIRE section of SERVICE module(homemgtcap-srv) -- refer mta.yaml for code
+
+Package.json changes
+In cds.require maintain different DB for each HDI containers. Here 'vcap' property used to bind this db to hdi container. Check package.json cds.require section for code.
+
+That's it !!
+
+Now you can access different HDI container tables accordingly. Check homemgtservice.js, i have maintained a 'flag' User Defined Variable for this service. If it is X then connect to hdicontainer-emp, if Y then connect to hdicontainer-sup.
+
+Note: I am setting db in 'before' method, this will trigger everytime whichever service's whatever method is called. You can use according to your usage.
 
     

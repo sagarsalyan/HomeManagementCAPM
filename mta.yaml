@@ -14,7 +14,8 @@ modules:
     path: gen/srv
     requires:
       - name: uaa_homemgtcap
-      - name: hana-hdi-container
+      - name: hana-hdi-container-emp
+      - name: hana-hdi-container-sup
     provides:
       - name: srv-api
         properties:
@@ -28,7 +29,17 @@ modules:
     type: hdb
     path: gen/db
     requires:
-      - name: hana-hdi-container
+      - name: hana-hdi-container-emp
+      - name: uaa_homemgtcap
+    parameters:
+      buildpack: nodejs_buildpack
+      no-route: true
+      no-start: true
+  - name: homemgtcap-db-deployer2
+    type: hdb
+    path: gen/db
+    requires:
+      - name: hana-hdi-container-sup
       - name: uaa_homemgtcap
     parameters:
       buildpack: nodejs_buildpack
@@ -49,7 +60,12 @@ resources:
       service: xsuaa
       service-name: uaa_homemgtcap-service
       service-plan: application
-  - name: hana-hdi-container
+  - name: hana-hdi-container-sup
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: hana-hdi-container-emp
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
